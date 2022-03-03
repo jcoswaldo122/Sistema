@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+
+
+
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Sistema de Facturación</title>
+		</f:facet>
+
+
+	</h:head>
+
+	<style>
+		html * {
+			font-size: 13px !important;
+
+	}
+</style>
+	<h:body>
+
+
+
+		<p:layout fullPage="true" styleClass="backgroundless">
+
+			<p:layoutUnit position="north" size="95" resizable="false" styleClass="north" 
+				closable="false" collapsible="false">
+
+
+				<h:panelGrid columns="5">
+				<p:graphicImage width="100px" value="#{FacesContext.getCurrentInstance}/Imagenes/crowBlack.jpg" />
+				<p:graphicImage width="440px" value="#{FacesContext.getCurrentInstance}/Imagenes/espacio.png" />
+				<p:graphicImage  width="250px" value="#{FacesContext.getCurrentInstance}/Imagenes/Iline.JPG" />
+				<p:graphicImage width="440px" value="#{FacesContext.getCurrentInstance}/Imagenes/espacio.png" />
+				<p:graphicImage width="100px" value="#{FacesContext.getCurrentInstance}/Imagenes/crowFuego.jpg" />
+					
+				</h:panelGrid>
+			</p:layoutUnit>
+
+
+
+			<p:layoutUnit position="west" size="170" header="Menu"
+				style="border:0;" collapsible="true">
+				<p:menu  >
+					
+                    <p:submenu >
+                   
+											
+						<p:menuitem icon="fa fa-user " value="Producto" outcome="Producto" />					
+						<p:menuitem icon="fa fa-car " value="Vendedor" outcome="Vendedor" />						
+						<p:menuitem icon="fa fa-car " value="Cliente" outcome="Cliente" />
+						<p:menuitem icon="fa fa-car " value="Categoria" outcome="Categoria" />						
+						<p:menuitem icon="fa fa-car " value="Venta" outcome="Venta" />
+					
+					 </p:submenu>
+
+					
+				
+					
+				</p:menu>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center" size="100%">
+				<ui:insert name="content" />
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+	</h:body>
+
+</f:view>
+</html>

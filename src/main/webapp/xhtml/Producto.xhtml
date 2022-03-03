@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>TODO supply a title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</h:head>
+<h:body>
+
+	<p:panel id="basic" header="Catalogo Principal">
+
+		<h:form>
+			<p:commandButton value="Nuevo Producto"
+				actionListener="#{productoView.preparar()}"
+				oncomplete="PF('dialogNuevoProducto').show();"
+				update=":formNuevoProducto" />
+		</h:form>
+
+
+
+		<h:form id="formMostrarProducto">
+			<p:dataTable id="tablaProducto" paginator="true"
+				paginatorPosition="top" var="pro"
+				value="#{productoView.listarProducto}"
+				emptyMessage="No hay datos del cliente">
+
+				<p:column headerText="Codigo">
+					<h:outputText value="#{pro.codProducto}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{pro.nombre}" />
+				</p:column>
+				
+				<p:column headerText="Categoria">
+					<h:outputText value="#{pro.fkCategoria.nombre}" />
+				</p:column>
+
+
+				<p:column headerText="Precio Venta">
+					$ <h:outputText value="#{pro.precioVenta}" />
+				</p:column>
+
+				<p:column headerText="Stock Minimo">
+					<h:outputText value="#{pro.stockMinimo}" />
+					Unidades
+				</p:column>
+
+				<p:column headerText="Stock Actual">
+					<h:outputText value="#{pro.stockActual}" />
+					Unidades
+				</p:column>
+
+				<p:column headerText="codigo Barras">
+					<h:outputText value="#{pro.codBarras}" />
+				</p:column>
+
+				<p:column headerText="Acciones">
+
+					<p:commandButton icon="pi pi pi-pencil"
+						oncomplete="PF('dialogModificarProducto').show();"
+						update=":formModificarProducto">
+						<f:setPropertyActionListener target="#{productoView.producto}"
+							value="#{pro}" />
+					</p:commandButton>
+
+					<p:commandButton icon="pi pi-trash"
+						oncomplete="PF('dialogEliminarProducto').show();"
+						update=":formEliminarProducto">
+						<f:setPropertyActionListener target="#{productoView.producto}"
+							value="#{pro}" />
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="formNuevoProducto">
+			<p:dialog id="dlgNuevoProducto" widgetVar="dialogNuevoProducto"
+				resizable="false" showEffect="explode" hideEffect="explode"
+				modal="true">
+
+				<p:panelGrid columns="2" style="margin: 0 auto;">
+
+					<p:outputLabel value="Categoria" />
+						<p:selectOneMenu id="Categoria" value="#{productoView.codCategoria}" var="pro">
+							<f:selectItem itemLabel="--Select Categoria--" itemValue="" />
+							<f:selectItems value="#{productoView.listarCategoria}"
+								var="categoria" itemLabel="#{categoria.nombre}  #{categoria.codCategoria}"
+								itemValue="#{categoria.codCategoria}"></f:selectItems>
+
+						</p:selectOneMenu>	
+					<p:outputLabel value="Nombres" />
+					<p:inputText value="#{productoView.producto.nombre}" />
+
+					<p:outputLabel value="Precio Venta" />
+					<p:inputText value="#{productoView.producto.precioVenta}" />
+
+					<p:outputLabel value="Stock Minimo" />
+					<p:inputText value="#{productoView.producto.stockMinimo}" />
+
+					<p:outputLabel value="Stock Actual" />
+					<p:inputText value="#{productoView.producto.stockActual}" />
+
+					<p:outputLabel value="Codigo Barras" />
+					<p:inputText value="#{productoView.producto.codBarras}" />
+
+				</p:panelGrid>
+				<p:commandButton value="Guardar"
+					actionListener="#{productoView.insertarProducto()}"
+					update=":formMostrarProducto:tablaProducto"
+					oncomplete="PF('dialogNuevoProducto').hide();" />
+				<p:commandButton value="Cancelar"
+					onclick="PF('dialogNuevoProducto').hide();" />
+			</p:dialog>
+		</h:form>
+
+
+		<h:form id="formModificarProducto">
+			<p:dialog id="dlgModificarProducto"
+				widgetVar="dialogModificarProducto" resizable="false"
+				showEffect="explode" hideEffect="explode" modal="true">
+				
+				<p:panelGrid columns="2" style="margin: 0 auto;">
+
+					<p:outputLabel value="Categoria" />
+						<p:selectOneMenu id="Categoria" value="#{productoView.codCategoria}" var="pro">
+							<f:selectItem itemLabel="--Select Categoria--" itemValue="" />
+							<f:selectItems value="#{productoView.listarCategoria}"
+								var="categoria" itemLabel="#{categoria.nombre}  #{categoria.codCategoria}"
+								itemValue="#{categoria.codCategoria}"></f:selectItems>
+
+						</p:selectOneMenu>	
+						
+					<p:outputLabel value="Nombres" />
+					<p:inputText value="#{productoView.producto.nombre}" />
+
+					<p:outputLabel value="Precio Venta" />
+					<p:inputText value="#{productoView.producto.precioVenta}" />
+
+					<p:outputLabel value="Stock Minimo" />
+					<p:inputText value="#{productoView.producto.stockMinimo}" />
+
+					<p:outputLabel value="Stock Actual" />
+					<p:inputText value="#{productoView.producto.stockActual}" />
+
+					<p:outputLabel value="Codigo Barras" />
+					<p:inputText value="#{productoView.producto.codBarras}" />
+
+				</p:panelGrid>
+
+				<p:commandButton value="Modificar"
+					actionListener="#{productoView.modificarProducto()}"
+					update=":formMostrarProducto:tablaProducto"
+					oncomplete="PF('dialogModificarProducto').hide();" />
+				<p:commandButton value="Cancelar"
+					onclick="PF('dialogModificarProducto').hide();" />
+			</p:dialog>
+		</h:form>
+
+		<h:form id="formEliminarProducto">
+			<p:dialog id="dlgEliminarProducto" widgetVar="dialogEliminarProducto"
+				resizable="false" showEffect="explode" hideEffect="explode"
+				modal="true">
+				<h:outputText value="Desea Eliminar este registro?" />
+				<p:commandButton value="Si"
+					actionListener="#{productoView.eliminarProducto()}"
+					update=":formMostrarProducto:tablaProducto"
+					oncomplete="PF('dialogEliminarProducto').hide();" />
+				<p:commandButton value="No"
+					onclick="PF('dialogEliminarProducto').hide();" />
+			</p:dialog>
+		</h:form>
+
+	</p:panel>
+
+</h:body>
+
+</html>

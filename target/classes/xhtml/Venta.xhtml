@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>TODO supply a title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</h:head>
+<h:body>
+
+	<h1>Realizar Venta</h1>
+
+	<h:form id="formFactura">
+		<p:panel header="hola"
+			style="width: 900px; margin: 0 auto; text-align: center;">
+			<p:layout id="capaDatosClienteFactura"
+				style="width 100%; height: 180px;">
+
+				<p:layoutUnit position="center" id="datosCliente"
+					style="padding: 5px; text-align: justify;
+			font-size: 14px"
+					size="300">
+					<p:panelGrid id="gridBuscarDatosCliente" columns="5">
+						<p:outputLabel value="codigo Cliente" style="font-weight: bold;" />
+						<p:inputText size="12" />
+						<p:commandButton value="..."
+							oncomplete="PF('dialogClientes').show();"
+							update="formFactura:dlgClientes" />
+
+						<p:outputLabel value="Fecha" style="font-weight: bold;" />
+						<p:outputLabel value="Fecha del sistema"
+							style="font-weight: bold;" />
+
+					</p:panelGrid>
+
+					<p:separator />
+
+					<p:panelGrid id="gridDatosCliente" columns="2">
+						<p:outputLabel value="Nombre" style="font-weight: bold;" />
+						<p:outputLabel id="lblNombreCliente" value="#{facturaView.cliente.nombre} #{facturaView.cliente.apellido}" />
+
+						<p:outputLabel value="Direccion" style="font-weight: bold;" />
+						<p:outputLabel id="lblDireccionCliente" value="#{facturaView.cliente.direccion}" />
+					</p:panelGrid>
+
+				</p:layoutUnit>
+
+				<p:layoutUnit position="east" id="datosFactura"
+					style="padding: 5px; text-align: center;
+			font-size: 14px"
+					size="200">
+
+					<h:panelGrid columns="1"
+						style="font-size: 24px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
+			FACTURA
+			
+			<p:outputLabel value="00000001" />
+					</h:panelGrid>
+				</p:layoutUnit>
+
+			</p:layout>
+
+			<p:separator />
+			<h:panelGrid columns="3">
+				<p:outputLabel value="codigo Barras" />
+				<p:inputText  size="12" />
+				<p:commandButton value=".." />
+			</h:panelGrid>
+			<p:separator />
+			<p:dataTable id="tablaProductosFactura">
+				<p:column headerText=" Codigo de Barras ">
+
+				</p:column>
+
+				<p:column headerText=" Producto ">
+
+				</p:column>
+
+				<p:column headerText=" Catidad ">
+
+				</p:column>
+
+				<p:column headerText=" Precio Venta ">
+
+				</p:column>
+
+				<p:column headerText=" Total">
+
+				</p:column>
+
+			</p:dataTable>
+
+			<p:outputLabel value="TOTAL VENTA" />
+$ <p:outputLabel value="Total a Vendert" />
+			<p:separator />
+
+			<p:commandButton value="Registrar"
+				style="width: 150px; height: 45px;" />
+			<p:commandButton value="Impprimir"
+				style="width: 150px; height: 45px;" />
+			<p:commandButton value="Cancelar" style="width: 150px; height: 45px;" />
+
+		</p:panel>
+
+		<!-- Dialogo para mostrar datod de los clientes del sistema -->
+
+		<p:dialog id="dlgClientes" widgetVar="dialogClientes" 
+			resizable="false" showEffect="explode" hideEffect="explode"
+			modal="true">
+
+			<p:dataTable id="tablaClientes" paginator="true" style="width: 700px"
+				paginatorPosition="top" var="cli"
+				value="#{clienteView.listarCliente}"
+				emptyMessage="No hay datos del cliente">
+
+				<p:column headerText="Codigo">
+					<h:outputText value="#{cli.codCliente}" />
+				</p:column>
+
+				<p:column headerText="Nombre Cliente">
+					<h:outputText value="#{cli.nombre} #{cli.apellido}" />
+				</p:column>
+
+				<p:column headerText="Direccion">
+					<h:outputText value="#{cli.direccion}" />
+				</p:column>
+
+
+				<p:column headerText="">
+
+					<p:commandButton value="Seleccionar" actionListener="#{facturaView.agregarDatosCliente(cli.codCliente)}"
+						oncomplete="PF('dialogClientes').hide();"
+						update="formFactura:gridDatosCliente" />
+
+
+
+
+				</p:column>
+
+			</p:dataTable>
+			
+			<p:commandButton value="Cerrar"
+						onclick="PF('dialogClientes').hide();" />
+
+		</p:dialog>
+	</h:form>
+
+
+</h:body>
+
+</html>

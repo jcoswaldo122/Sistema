@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Insert title here</title>
+</h:head>
+<h:body>
+
+	<p:panel id="basic" header="Registro del Cliente">
+		<h:form id="frmCliente">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<h:panelGrid colums="2">
+
+				<p:outputLabel value="Nombre "></p:outputLabel>
+				<p:inputText id="txtNombre" value="#{clienteView.cliente.nombre}" />
+
+				<p:outputLabel value="Apellido "></p:outputLabel>
+				<p:inputText id="txtApellido"
+					value="#{clienteView.cliente.apellido}" />
+
+				<p:outputLabel value="Direccion "></p:outputLabel>
+				<p:inputText id="txtDireccion"
+					value="#{clienteView.cliente.direccion}" />
+
+				<p:outputLabel value="Email "></p:outputLabel>
+				<p:inputText id="txtEmail" value="#{clienteView.cliente.email}" />
+
+				<p:outputLabel value="Estado "></p:outputLabel>
+				<p:inputText id="txtEstado" value="#{clienteView.cliente.estado}" />
+
+
+			</h:panelGrid>
+			<p:commandButton value="Agregar"
+				actionListener="#{clienteView.insertarCliente()}"
+				update="@form detalle"></p:commandButton>
+		</h:form>
+
+
+	</p:panel>
+	<p:panel id="detalle" header="Listar">
+
+		<h:form>
+			<p:dataTable var="cli" value="#{clienteView.listarCliente}" rows="20"
+				widgetVar="lstClientes" paginator="true" paginatorPosition="bottom"
+				scrollable="tru" scrollRows="5">
+
+				<p:column headerText="Id" filterBy="#{cli.codCliente}"
+					filterMatchMode="contains">
+					<h:outputText value="#{cli.codCliente}" />
+				</p:column>
+
+
+				<p:column headerText="Nombre" filterBy="#{cli.nombre}"
+					filterMatchMode="contains">
+					<h:outputText value="#{cli.nombre}" />
+				</p:column>
+
+				<p:column headerText="Apellido" filterBy="#{cli.apellido}"
+					filterMatchMode="contains">
+					<h:outputText value="#{cli.apellido}" />
+				</p:column>
+
+				<p:column headerText="Direccion">
+					<h:outputText value="#{cli.direccion}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{cli.email}" />
+				</p:column>
+
+				<p:column headerText="Estado">
+					<h:outputText value="#{cli.estado}" />
+				</p:column>
+
+
+
+			</p:dataTable>
+
+		</h:form>
+
+
+
+	</p:panel>
+
+</h:body>
+</html>
