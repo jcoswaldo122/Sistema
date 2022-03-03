@@ -1,6 +1,6 @@
 package tecnicarWebTes;
 
-
+/*
 
 import java.util.ArrayList;
 
@@ -32,3 +32,4 @@ public class tecnicarTes {
 	}
 
 }
+*/
