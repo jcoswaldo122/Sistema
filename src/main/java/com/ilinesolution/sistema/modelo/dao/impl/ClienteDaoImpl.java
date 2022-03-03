@@ -119,7 +119,7 @@ public class ClienteDaoImpl extends GenericaDaoImpl<Cliente> implements ClienteD
 		   CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
 			CriteriaQuery<Cliente> c= cb.createQuery(Cliente.class);
 			Root<Cliente> cliente = c.from(Cliente.class);
-			//c.select(cliente).where(cb.equal(cliente.get("email"), emailCliente),and(cliente.get("estado"),1));
+			c.select(cliente).where(cb.equal(cliente.get("email"), emailCliente));
 			return this.entityManager.createQuery(c).getSingleResult();
 	   }
 
